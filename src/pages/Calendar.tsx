@@ -214,7 +214,7 @@ export default function Calendar() {
       <FavoritesDialog 
         open={showFavorites}
         onClose={() => setShowFavorites(false)}
-        onSelectMeal={handleFavoriteSelect}
+        onSelect={handleFavoriteSelect}
         meals={meals.filter(m => m.is_favorite)}
       />
 

@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
-import { FamilyMember, Meal, MealPlan, FamilyPreferences } from "@/entities/all";
-import { InvokeLLM } from "@/integrations/Core";
+import { FamilyMember, Meal, MealPlan, FamilyPreferences } from "@/lib/entities";
+import { InvokeLLM } from "@/lib/ai";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -19,7 +19,7 @@ import {
   ShoppingCart // Added ShoppingCart
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { createPageUrl } from "@/utils";
+import { createPageUrl } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 
 import QuickStats from "../components/dashboard/QuickStats";
@@ -48,8 +48,8 @@ export default function Dashboard() {
     try {
       const [members, meals, plans, prefsList] = await Promise.all([
         FamilyMember.list(),
-        Meal.list('-created_date', 10),
-        MealPlan.list('-date', 7),
+        Meal.list(),
+        MealPlan.list(),
         FamilyPreferences.list()
       ]);
 
@@ -219,7 +219,12 @@ export default function Dashboard() {
       </div>
 
       {/* Quick Stats */}
-      <QuickStats stats={stats} familyCount={familyMembers.length} />
+      <QuickStats
+        totalMeals={stats.totalMeals}
+        favoriteCount={stats.favoriteCount}
+        weekPlanned={stats.weekPlanned}
+        familyCount={familyMembers.length}
+      />
 
       {/* Main Content Grid */}
       <div className="grid lg:grid-cols-3 gap-8">

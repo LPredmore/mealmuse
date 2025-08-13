@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FamilyMember, FamilyPreferences } from "@/entities/all";
+import { FamilyMember, FamilyPreferences } from "@/lib/entities";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Plus, Users, Edit, Trash2, Settings } from "lucide-react";

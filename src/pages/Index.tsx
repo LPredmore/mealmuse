@@ -13,8 +13,9 @@ import { FamilySection } from "@/components/family/FamilySection";
 import { FamilyPreferencesSection } from "@/components/family/FamilyPreferencesSection";
 import QuickStats from "@/components/dashboard/QuickStats";
 import MealSuggestions from "@/components/dashboard/MealSuggestions";
-import RecentMeals, { RecentMealItem } from "@/components/dashboard/RecentMeals";
-import UpcomingMeals, { UpcomingItem } from "@/components/dashboard/UpcomingMeals";
+import RecentMeals from "@/components/dashboard/RecentMeals";
+import UpcomingMeals from "@/components/dashboard/UpcomingMeals";
+
 // Mock data for demonstration
 const mockFamilyMembers = [
   {
@@ -61,24 +62,35 @@ const mockFavoriteRecipes = [
 ]; 
 
 // Mock dashboard data to match the design reference
-const mockUpcomingMeals: UpcomingItem[] = [
+const mockUpcomingMeals = [
   { id: "u1", date: "Jun 14", label: "DINNER", note: "Meal planned" },
   { id: "u2", date: "Jun 12", label: "DINNER", note: "Meal planned" },
   { id: "u3", date: "Jun 11", label: "DINNER", note: "Meal planned" },
 ];
 
-const mockRecentMeals: RecentMealItem[] = [
+const mockRecentMeals = [
   { id: "r1", name: "Savory Herb-Crusted Beef Tenderloin", cuisine: "American", difficulty: "moderate", time: "50 min", servings: 4 },
   { id: "r2", name: "Honey Garlic Chicken Stir Fry", cuisine: "Asian", difficulty: "moderate", time: "35 min", servings: 4 },
 ];
 
+const mockSuggestedMeals = [
+  { id: "s1", name: "Teriyaki Salmon Bowl", cuisine: "Asian", difficulty: "easy", time: "25 min", description: "Healthy and delicious" },
+  { id: "s2", name: "Italian Pasta Primavera", cuisine: "Italian", difficulty: "moderate", time: "35 min", description: "Fresh vegetables and pasta" },
+];
+
 const Index = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
+  const [isGenerating, setIsGenerating] = useState(false);
+  
   useEffect(() => {
     document.title = "MealMuse Dashboard - AI Meal Planning";
     const meta = document.querySelector('meta[name="description"]');
     if (meta) meta.setAttribute("content", "MealMuse dashboard with AI meal suggestions, upcoming meals, and quick actions.");
   }, []);
+
+  const handleSaveMeal = (meal) => {
+    console.log("Saving meal:", meal);
+  };
 
   return (
     <SidebarProvider>
@@ -127,13 +139,18 @@ const Index = () => {
             <div className="grid lg:grid-cols-3 gap-8">
               {/* Left Column - Suggestions and Recent */}
               <div className="lg:col-span-2 space-y-8">
-                <MealSuggestions />
+                <MealSuggestions 
+                  suggestions={mockSuggestedMeals}
+                  isGenerating={isGenerating}
+                  onSaveMeal={handleSaveMeal}
+                  familyCount={mockFamilyMembers.length}
+                />
                 <RecentMeals meals={mockRecentMeals} />
               </div>
 
               {/* Right Column - Upcoming & Quick Actions */}
               <div className="space-y-8">
-                <UpcomingMeals items={mockUpcomingMeals} />
+                <UpcomingMeals upcomingMeals={mockUpcomingMeals} />
 
                 {/* Quick Actions */}
                 <Card className="backdrop-blur-xl bg-card/50 border border-border/40 rounded-3xl overflow-hidden">
