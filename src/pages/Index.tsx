@@ -3,7 +3,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Plus, User, Calendar, List, Edit } from "lucide-react";
-import { Navigation } from "@/components/Navigation";
+import { AppSidebar } from "@/components/AppSidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { FamilyMemberCard } from "@/components/FamilyMemberCard";
 import { RecipeCard } from "@/components/RecipeCard";
 import { AIGenerationSection } from "@/components/AIGenerationSection";
@@ -58,10 +59,18 @@ const Index = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
 
   return (
-    <div className="min-h-screen app-gradient">
-      <Navigation activeTab={activeTab} onTabChange={setActiveTab} />
-      
-      <main className="container mx-auto px-4 py-8">
+    <SidebarProvider>
+      <div className="min-h-screen app-gradient flex">
+        <AppSidebar activeTab={activeTab} onTabChange={setActiveTab} />
+        <main className="flex-1">
+          <header className="h-14 flex items-center justify-between container mx-auto px-4">
+            <SidebarTrigger />
+            <div className="flex gap-2">
+              <Button variant="secondary" onClick={() => setActiveTab('dashboard')}>Get AI Suggestions</Button>
+              <Button variant="outline" onClick={() => setActiveTab('calendar')}>Plan Meals</Button>
+            </div>
+          </header>
+          <div className="container mx-auto px-4 py-8">
         {activeTab === "dashboard" && (
           <div className="space-y-8">
             {/* Header */}
@@ -228,8 +237,10 @@ const Index = () => {
             </div>
           </div>
         )}
-      </main>
-    </div>
+          </div>
+        </main>
+      </div>
+    </SidebarProvider>
   );
 };
 
