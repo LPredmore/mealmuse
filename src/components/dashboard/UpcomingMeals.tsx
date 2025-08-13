@@ -1,35 +1,58 @@
-import { Calendar as CalendarIcon } from "lucide-react";
+import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Calendar, Clock } from "lucide-react";
+import { format } from "date-fns";
+import { motion } from "framer-motion";
 
-export interface UpcomingItem {
-  id: string;
-  date: string; // e.g., "Jun 14"
-  label: string; // e.g., "DINNER"
-  note: string; // e.g., "Meal planned"
-}
-
-export default function UpcomingMeals({ items }: { items: UpcomingItem[] }) {
+export default function UpcomingMeals({ upcomingMeals }) {
   return (
-    <Card className="backdrop-blur-xl bg-card/50 border border-border/40 rounded-3xl overflow-hidden animate-fade-in">
-      <CardHeader className="pb-2">
-        <CardTitle className="text-foreground text-xl font-bold flex items-center gap-2">
-          <CalendarIcon className="h-5 w-5" />
-          Upcoming Meals
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-3">
-        {items.map((it) => (
-          <div key={it.id} className="flex items-center justify-between rounded-2xl bg-background/40 border border-border/30 p-4">
-            <div>
-              <div className="text-sm font-semibold text-foreground">{it.date}</div>
-              <div className="text-xs text-muted-foreground">{it.note}</div>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.4 }}
+    >
+      <Card className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl">
+        <CardHeader className="pb-4">
+          <CardTitle className="text-white text-xl font-bold flex items-center gap-2">
+            <Calendar className="w-5 h-5" />
+            Upcoming Meals
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {upcomingMeals.length > 0 ? (
+            <div className="space-y-3">
+              {upcomingMeals.slice(0, 5).map((plan, index) => (
+                <motion.div
+                  key={plan.id}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.05 }}
+                  className="p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10"
+                >
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-white font-medium text-sm">
+                      {format(new Date(plan.date), "MMM d")}
+                    </span>
+                    <span className="text-white/60 text-xs uppercase">
+                      {plan.meal_type}
+                    </span>
+                  </div>
+                  {plan.is_skipped ? (
+                    <p className="text-white/60 text-sm italic">Day skipped</p>
+                  ) : (
+                    <p className="text-white/80 text-sm">Meal planned</p>
+                  )}
+                </motion.div>
+              ))}
             </div>
-            <span className="rounded-xl px-3 py-1 text-xs font-medium bg-secondary/70 text-secondary-foreground border border-border/40">
-              {it.label}
-            </span>
-          </div>
-        ))}
-      </CardContent>
-    </Card>
+          ) : (
+            <div className="text-center py-6">
+              <Calendar className="w-12 h-12 text-white/50 mx-auto mb-3" />
+              <p className="text-white/70 text-sm">No upcoming meals planned</p>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+    </motion.div>
   );
 }
