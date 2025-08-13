@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -8,7 +7,7 @@ import { Navigation } from "@/components/Navigation";
 import { FamilyMemberCard } from "@/components/FamilyMemberCard";
 import { RecipeCard } from "@/components/RecipeCard";
 import { AIGenerationSection } from "@/components/AIGenerationSection";
-
+import { FamilySection } from "@/components/family/FamilySection";
 // Mock data for demonstration
 const mockFamilyMembers = [
   {
@@ -197,8 +196,9 @@ const Index = () => {
           <div className="space-y-6">
             <h2 className="text-3xl font-bold text-orange-700">Family Management</h2>
             <p className="text-gray-600">Manage your family members and their preferences.</p>
-            <div className="text-center py-12 text-gray-500">
-              Family management interface coming soon...
+            <div>
+              {/* Family Section Component */}
+              <FamilySection />
             </div>
           </div>
         )}
