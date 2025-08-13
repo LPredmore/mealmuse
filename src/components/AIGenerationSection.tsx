@@ -50,11 +50,11 @@ export const AIGenerationSection = () => {
   };
 
   return (
-    <Card className="bg-gradient-to-r from-purple-50 to-pink-50 border-purple-200">
+    <Card className="bg-card/40 backdrop-blur-md border-border/30 rounded-2xl">
       <CardHeader>
         <div className="flex items-center justify-between">
           <div>
-            <CardTitle className="flex items-center gap-2 text-purple-700">
+            <CardTitle className="flex items-center gap-2 text-primary">
               🤖 AI Meal Suggestions
             </CardTitle>
             <CardDescription>
@@ -64,7 +64,6 @@ export const AIGenerationSection = () => {
           <Button 
             onClick={handleGenerateNew}
             disabled={isGenerating}
-            className="bg-purple-500 hover:bg-purple-600"
           >
             {isGenerating ? (
               <Loader2 className="h-4 w-4 mr-2 animate-spin" />
@@ -77,27 +76,27 @@ export const AIGenerationSection = () => {
       </CardHeader>
       <CardContent className="space-y-4">
         {suggestions.map((suggestion) => (
-          <Card key={suggestion.id} className="bg-white/80 border-purple-100">
+          <Card key={suggestion.id} className="bg-card/60 border-border/30 rounded-xl">
             <CardContent className="p-4">
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1 space-y-2">
-                  <h4 className="font-semibold text-gray-800">{suggestion.name}</h4>
+                  <h4 className="font-semibold text-foreground">{suggestion.name}</h4>
                   <div className="flex items-center gap-2">
-                    <Badge variant="outline" className="text-xs border-purple-300 text-purple-700">
+                    <Badge variant="outline" className="text-xs border-accent text-accent-foreground/90">
                       {suggestion.cuisine}
                     </Badge>
-                    <Badge variant="outline" className="text-xs border-gray-300 text-gray-700">
+                    <Badge variant="outline" className="text-xs border-border/50 text-foreground/80">
                       {suggestion.complexity}
                     </Badge>
-                    <span className="text-sm text-gray-600">{suggestion.timing}</span>
+                    <span className="text-sm text-muted-foreground">{suggestion.timing}</span>
                   </div>
-                  <p className="text-sm text-gray-600 italic">{suggestion.reason}</p>
+                  <p className="text-sm text-muted-foreground italic">{suggestion.reason}</p>
                 </div>
                 <Button 
                   size="sm" 
                   variant="outline"
                   onClick={() => handleSaveRecipe(suggestion.id)}
-                  className="border-purple-300 text-purple-700 hover:bg-purple-50"
+                  className="border-accent text-accent-foreground hover:bg-accent/10"
                 >
                   Save Recipe
                 </Button>

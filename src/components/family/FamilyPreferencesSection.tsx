@@ -71,9 +71,9 @@ export const FamilyPreferencesSection = () => {
   };
 
   return (
-    <Card className="bg-white/80 backdrop-blur-sm border-emerald-100">
+    <Card className="bg-card/70 backdrop-blur-md border-emerald-100">
       <CardHeader>
-        <CardTitle className="text-emerald-700">Family Preferences</CardTitle>
+        <CardTitle className="text-primary">Family Preferences</CardTitle>
         <CardDescription>Favorite cuisines and available cooking equipment</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
@@ -84,19 +84,20 @@ export const FamilyPreferencesSection = () => {
             <section>
               <h3 className="font-semibold mb-3">Family Favorite Cuisines</h3>
               <div className="flex flex-wrap gap-2 mb-3">
-                {PRESET_CUISINES.map((c) => {
-                  const active = selectedCuisines.includes(c);
-                  return (
-                    <Button
-                      key={c}
-                      variant={active ? "secondary" : "outline"}
-                      size="sm"
-                      onClick={() => handleSave(toggleItem(selectedCuisines, c), undefined)}
-                    >
-                      {c}
-                    </Button>
-                  );
-                })}
+            {PRESET_CUISINES.map((c) => {
+              const active = selectedCuisines.includes(c);
+              return (
+                <Button
+                  key={c}
+                  variant={active ? "secondary" : "outline"}
+                  size="sm"
+                  onClick={() => handleSave(toggleItem(selectedCuisines, c), undefined)}
+                  className="rounded-full"
+                >
+                  {c}
+                </Button>
+              );
+            })}
               </div>
               <div className="flex gap-2">
                 <Input
@@ -108,13 +109,13 @@ export const FamilyPreferencesSection = () => {
               </div>
               {selectedCuisines.length > 0 && (
                 <div className="flex flex-wrap gap-2 mt-3">
-                  {selectedCuisines.map((c) => (
-                    <Badge key={c} variant="secondary" className="cursor-pointer"
-                      onClick={() => handleSave(toggleItem(selectedCuisines, c), undefined)}
-                    >
-                      {c}
-                    </Badge>
-                  ))}
+              {selectedCuisines.map((c) => (
+                <Badge key={c} variant="secondary" className="cursor-pointer rounded-full"
+                  onClick={() => handleSave(toggleItem(selectedCuisines, c), undefined)}
+                >
+                  {c}
+                </Badge>
+              ))}
                 </div>
               )}
             </section>
@@ -122,19 +123,20 @@ export const FamilyPreferencesSection = () => {
             <section>
               <h3 className="font-semibold mb-3">Available Cooking Equipment</h3>
               <div className="flex flex-wrap gap-2 mb-3">
-                {PRESET_EQUIPMENT.map((eq) => {
-                  const active = selectedEquipment.includes(eq);
-                  return (
-                    <Button
-                      key={eq}
-                      variant={active ? "secondary" : "outline"}
-                      size="sm"
-                      onClick={() => handleSave(undefined, toggleItem(selectedEquipment, eq))}
-                    >
-                      {eq}
-                    </Button>
-                  );
-                })}
+            {PRESET_EQUIPMENT.map((eq) => {
+              const active = selectedEquipment.includes(eq);
+              return (
+                <Button
+                  key={eq}
+                  variant={active ? "secondary" : "outline"}
+                  size="sm"
+                  onClick={() => handleSave(undefined, toggleItem(selectedEquipment, eq))}
+                  className="rounded-full"
+                >
+                  {eq}
+                </Button>
+              );
+            })}
               </div>
               <div className="flex gap-2">
                 <Input
@@ -146,13 +148,13 @@ export const FamilyPreferencesSection = () => {
               </div>
               {selectedEquipment.length > 0 && (
                 <div className="flex flex-wrap gap-2 mt-3">
-                  {selectedEquipment.map((eq) => (
-                    <Badge key={eq} variant="secondary" className="cursor-pointer"
-                      onClick={() => handleSave(undefined, toggleItem(selectedEquipment, eq))}
-                    >
-                      {eq}
-                    </Badge>
-                  ))}
+              {selectedEquipment.map((eq) => (
+                <Badge key={eq} variant="secondary" className="cursor-pointer rounded-full"
+                  onClick={() => handleSave(undefined, toggleItem(selectedEquipment, eq))}
+                >
+                  {eq}
+                </Badge>
+              ))}
                 </div>
               )}
             </section>

@@ -17,7 +17,7 @@ export const Navigation = ({ activeTab, onTabChange }: NavigationProps) => {
   ];
 
   return (
-    <nav className="bg-white/90 backdrop-blur-md border-b border-orange-100 sticky top-0 z-10">
+    <nav className="bg-card/60 backdrop-blur-md border-b border-border/40 sticky top-0 z-10">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center space-x-1">
@@ -29,8 +29,8 @@ export const Navigation = ({ activeTab, onTabChange }: NavigationProps) => {
                 onClick={() => onTabChange(id)}
                 className={
                   activeTab === id
-                    ? "bg-orange-500 hover:bg-orange-600 text-white"
-                    : "text-gray-600 hover:text-orange-600 hover:bg-orange-50"
+                    ? "bg-primary text-primary-foreground"
+                    : "text-foreground/80 hover:text-primary hover:bg-primary/10"
                 }
               >
                 <Icon className="h-4 w-4 mr-2" />

@@ -21,26 +21,26 @@ interface RecipeCardProps {
 export const RecipeCard = ({ recipe }: RecipeCardProps) => {
   const getComplexityColor = (complexity: string) => {
     switch (complexity.toLowerCase()) {
-      case 'easy': return 'bg-green-100 text-green-700 border-green-300';
-      case 'moderate': return 'bg-amber-100 text-amber-700 border-amber-300';
-      case 'difficult': return 'bg-red-100 text-red-700 border-red-300';
-      default: return 'bg-gray-100 text-gray-700 border-gray-300';
+      case 'easy': return 'bg-accent/20 text-accent-foreground border-accent';
+      case 'moderate': return 'bg-secondary/30 text-foreground border-secondary';
+      case 'difficult': return 'bg-destructive/20 text-destructive-foreground border-destructive';
+      default: return 'bg-muted text-muted-foreground border-border';
     }
   };
 
   return (
-    <Card className="hover:shadow-md transition-shadow duration-200 bg-white/60 border-green-100">
+    <Card className="hover:shadow-glow transition-shadow duration-200 bg-card/60 backdrop-blur-md border-border/40 rounded-2xl">
       <CardContent className="p-4">
         <div className="space-y-3">
           <div className="flex items-start justify-between">
-            <h4 className="font-semibold text-gray-800 flex-1">{recipe.name}</h4>
-            {recipe.isFavorite && <span className="text-amber-500">⭐</span>}
+            <h4 className="font-semibold text-foreground flex-1">{recipe.name}</h4>
+            {recipe.isFavorite && <span className="text-accent">⭐</span>}
           </div>
           
-          <div className="flex items-center gap-2 text-sm text-gray-600">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Clock className="h-4 w-4" />
             <span>{recipe.prepTime + recipe.cookTime} min total</span>
-            <span className="text-gray-400">•</span>
+            <span className="text-muted-foreground/40">•</span>
             <span>{recipe.cuisine}</span>
           </div>
           
@@ -52,13 +52,13 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
               {recipe.complexity}
             </Badge>
             {recipe.tags.map((tag, index) => (
-              <Badge 
-                key={index} 
-                variant="outline" 
-                className="text-xs border-green-300 text-green-700"
-              >
-                {tag}
-              </Badge>
+            <Badge 
+              key={index} 
+              variant="outline" 
+              className="text-xs border-accent text-accent-foreground/90"
+            >
+              {tag}
+            </Badge>
             ))}
           </div>
         </div>

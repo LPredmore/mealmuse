@@ -58,7 +58,7 @@ const Index = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-amber-50 to-green-50">
+    <div className="min-h-screen app-gradient">
       <Navigation activeTab={activeTab} onTabChange={setActiveTab} />
       
       <main className="container mx-auto px-4 py-8">
@@ -66,40 +66,40 @@ const Index = () => {
           <div className="space-y-8">
             {/* Header */}
             <div className="text-center space-y-4">
-              <h1 className="text-5xl font-bold bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent">
+              <h1 className="text-5xl font-bold heading-gradient">
                 MealMuse
               </h1>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                 AI-powered family meal planning that brings everyone to the table
               </p>
             </div>
 
             {/* Quick Stats */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <Card className="bg-white/70 backdrop-blur-sm border-orange-200 hover:shadow-lg transition-all duration-300">
+              <Card className="bg-card/60 backdrop-blur-md border-border/40 hover:shadow-glow transition-all duration-300">
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-2xl font-bold text-orange-600">2</CardTitle>
+                  <CardTitle className="text-2xl font-bold text-primary">2</CardTitle>
                   <CardDescription>Family Members</CardDescription>
                 </CardHeader>
               </Card>
               
-              <Card className="bg-white/70 backdrop-blur-sm border-amber-200 hover:shadow-lg transition-all duration-300">
+              <Card className="bg-card/60 backdrop-blur-md border-border/40 hover:shadow-glow transition-all duration-300">
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-2xl font-bold text-amber-600">12</CardTitle>
+                  <CardTitle className="text-2xl font-bold text-primary">12</CardTitle>
                   <CardDescription>Favorite Recipes</CardDescription>
                 </CardHeader>
               </Card>
               
-              <Card className="bg-white/70 backdrop-blur-sm border-green-200 hover:shadow-lg transition-all duration-300">
+              <Card className="bg-card/60 backdrop-blur-md border-border/40 hover:shadow-glow transition-all duration-300">
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-2xl font-bold text-green-600">5</CardTitle>
+                  <CardTitle className="text-2xl font-bold text-primary">5</CardTitle>
                   <CardDescription>Planned Meals</CardDescription>
                 </CardHeader>
               </Card>
               
-              <Card className="bg-white/70 backdrop-blur-sm border-blue-200 hover:shadow-lg transition-all duration-300">
+              <Card className="bg-card/60 backdrop-blur-md border-border/40 hover:shadow-glow transition-all duration-300">
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-2xl font-bold text-blue-600">3</CardTitle>
+                  <CardTitle className="text-2xl font-bold text-primary">3</CardTitle>
                   <CardDescription>AI Suggestions</CardDescription>
                 </CardHeader>
               </Card>
@@ -111,17 +111,17 @@ const Index = () => {
             {/* Family Members & Recipes Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Family Members */}
-              <Card className="bg-white/80 backdrop-blur-sm border-orange-100">
+              <Card className="bg-card/70 backdrop-blur-md border-border/40 rounded-2xl">
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <div>
-                      <CardTitle className="flex items-center gap-2 text-orange-700">
+                      <CardTitle className="flex items-center gap-2 text-primary">
                         <User className="h-5 w-5" />
                         Family Members
                       </CardTitle>
                       <CardDescription>Manage preferences and dietary needs</CardDescription>
                     </div>
-                    <Button size="sm" className="bg-orange-500 hover:bg-orange-600">
+                    <Button size="sm">
                       <Plus className="h-4 w-4 mr-1" />
                       Add Member
                     </Button>
@@ -135,17 +135,17 @@ const Index = () => {
               </Card>
 
               {/* Favorite Recipes */}
-              <Card className="bg-white/80 backdrop-blur-sm border-green-100">
+              <Card className="bg-card/70 backdrop-blur-md border-border/40 rounded-2xl">
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <div>
-                      <CardTitle className="flex items-center gap-2 text-green-700">
+                      <CardTitle className="flex items-center gap-2 text-primary">
                         <List className="h-5 w-5" />
                         Favorite Recipes
                       </CardTitle>
                       <CardDescription>Your family's go-to meals</CardDescription>
                     </div>
-                    <Button size="sm" className="bg-green-500 hover:bg-green-600">
+                    <Button size="sm">
                       <Plus className="h-4 w-4 mr-1" />
                       Add Recipe
                     </Button>
@@ -160,30 +160,21 @@ const Index = () => {
             </div>
 
             {/* Quick Actions */}
-            <Card className="bg-gradient-to-r from-orange-100 to-amber-100 border-orange-200">
+            <Card className="bg-card/60 backdrop-blur-md border-border/40 rounded-2xl">
               <CardHeader>
-                <CardTitle className="text-center text-orange-800">Quick Actions</CardTitle>
+                <CardTitle className="text-center text-primary">Quick Actions</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="flex flex-wrap justify-center gap-4">
-                  <Button 
-                    className="bg-orange-500 hover:bg-orange-600 text-white"
-                    onClick={() => setActiveTab("family")}
-                  >
+                  <Button onClick={() => setActiveTab("family")}>
                     <User className="h-4 w-4 mr-2" />
                     Manage Family
                   </Button>
-                  <Button 
-                    className="bg-amber-500 hover:bg-amber-600 text-white"
-                    onClick={() => setActiveTab("calendar")}
-                  >
+                  <Button onClick={() => setActiveTab("calendar")}>
                     <Calendar className="h-4 w-4 mr-2" />
                     Plan Meals
                   </Button>
-                  <Button 
-                    className="bg-green-500 hover:bg-green-600 text-white"
-                    onClick={() => setActiveTab("recipes")}
-                  >
+                  <Button onClick={() => setActiveTab("recipes")}>
                     <Edit className="h-4 w-4 mr-2" />
                     Add Recipe
                   </Button>
@@ -195,8 +186,8 @@ const Index = () => {
 
         {activeTab === "family" && (
           <div className="space-y-6">
-            <h1 className="text-3xl font-bold text-orange-700">Family Management</h1>
-            <p className="text-gray-600">Manage individual profiles and family-wide preferences.</p>
+            <h1 className="text-3xl font-bold text-primary">Family Management</h1>
+            <p className="text-muted-foreground">Manage individual profiles and family-wide preferences.</p>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               <div className="lg:col-span-2 space-y-6">
                 <FamilySection />
@@ -210,9 +201,9 @@ const Index = () => {
 
         {activeTab === "calendar" && (
           <div className="space-y-6">
-            <h2 className="text-3xl font-bold text-amber-700">Meal Calendar</h2>
-            <p className="text-gray-600">Plan your family's meals for the next 14 days.</p>
-            <div className="text-center py-12 text-gray-500">
+            <h2 className="text-3xl font-bold text-primary">Meal Calendar</h2>
+            <p className="text-muted-foreground">Plan your family's meals for the next 14 days.</p>
+            <div className="text-center py-12 text-muted-foreground">
               Meal calendar interface coming soon...
             </div>
           </div>
@@ -220,9 +211,9 @@ const Index = () => {
 
         {activeTab === "recipes" && (
           <div className="space-y-6">
-            <h2 className="text-3xl font-bold text-green-700">Recipe Library</h2>
-            <p className="text-gray-600">Browse and manage your family's recipe collection.</p>
-            <div className="text-center py-12 text-gray-500">
+            <h2 className="text-3xl font-bold text-primary">Recipe Library</h2>
+            <p className="text-muted-foreground">Browse and manage your family's recipe collection.</p>
+            <div className="text-center py-12 text-muted-foreground">
               Recipe library interface coming soon...
             </div>
           </div>
@@ -230,9 +221,9 @@ const Index = () => {
 
         {activeTab === "shopping" && (
           <div className="space-y-6">
-            <h2 className="text-3xl font-bold text-blue-700">Shopping List</h2>
-            <p className="text-gray-600">Generate and manage your grocery shopping lists.</p>
-            <div className="text-center py-12 text-gray-500">
+            <h2 className="text-3xl font-bold text-primary">Shopping List</h2>
+            <p className="text-muted-foreground">Generate and manage your grocery shopping lists.</p>
+            <div className="text-center py-12 text-muted-foreground">
               Shopping list interface coming soon...
             </div>
           </div>
