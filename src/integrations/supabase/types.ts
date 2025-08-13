@@ -14,7 +14,72 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      family_members: {
+        Row: {
+          adventurousness: string
+          age: number | null
+          allergies: string[]
+          created_at: string
+          dietary_restrictions: string[]
+          id: string
+          name: string
+          preferences: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          adventurousness: string
+          age?: number | null
+          allergies?: string[]
+          created_at?: string
+          dietary_restrictions?: string[]
+          id?: string
+          name: string
+          preferences?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          adventurousness?: string
+          age?: number | null
+          allergies?: string[]
+          created_at?: string
+          dietary_restrictions?: string[]
+          id?: string
+          name?: string
+          preferences?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      family_preferences: {
+        Row: {
+          cooking_equipment: string[]
+          created_at: string
+          favorite_cuisines: string[]
+          id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          cooking_equipment?: string[]
+          created_at?: string
+          favorite_cuisines?: string[]
+          id?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          cooking_equipment?: string[]
+          created_at?: string
+          favorite_cuisines?: string[]
+          id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
