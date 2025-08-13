@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -11,6 +11,10 @@ import { RecipeCard } from "@/components/RecipeCard";
 import { AIGenerationSection } from "@/components/AIGenerationSection";
 import { FamilySection } from "@/components/family/FamilySection";
 import { FamilyPreferencesSection } from "@/components/family/FamilyPreferencesSection";
+import QuickStats from "@/components/dashboard/QuickStats";
+import MealSuggestions from "@/components/dashboard/MealSuggestions";
+import RecentMeals, { RecentMealItem } from "@/components/dashboard/RecentMeals";
+import UpcomingMeals, { UpcomingItem } from "@/components/dashboard/UpcomingMeals";
 // Mock data for demonstration
 const mockFamilyMembers = [
   {
@@ -54,10 +58,27 @@ const mockFavoriteRecipes = [
     isFavorite: true,
     tags: ["Quick Dinner"]
   }
+]; 
+
+// Mock dashboard data to match the design reference
+const mockUpcomingMeals: UpcomingItem[] = [
+  { id: "u1", date: "Jun 14", label: "DINNER", note: "Meal planned" },
+  { id: "u2", date: "Jun 12", label: "DINNER", note: "Meal planned" },
+  { id: "u3", date: "Jun 11", label: "DINNER", note: "Meal planned" },
+];
+
+const mockRecentMeals: RecentMealItem[] = [
+  { id: "r1", name: "Savory Herb-Crusted Beef Tenderloin", cuisine: "American", difficulty: "moderate", time: "50 min", servings: 4 },
+  { id: "r2", name: "Honey Garlic Chicken Stir Fry", cuisine: "Asian", difficulty: "moderate", time: "35 min", servings: 4 },
 ];
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
+  useEffect(() => {
+    document.title = "MealMuse Dashboard - AI Meal Planning";
+    const meta = document.querySelector('meta[name="description"]');
+    if (meta) meta.setAttribute("content", "MealMuse dashboard with AI meal suggestions, upcoming meals, and quick actions.");
+  }, []);
 
   return (
     <SidebarProvider>
@@ -69,133 +90,74 @@ const Index = () => {
               <SidebarTrigger />
             </div>
             <div className="flex gap-2">
-              <Button variant="secondary" onClick={() => setActiveTab('dashboard')}>Get AI Suggestions</Button>
-              <Button variant="outline" onClick={() => setActiveTab('calendar')}>Plan Meals</Button>
+              <Button variant="secondary" onClick={() => setActiveTab('dashboard')} className="rounded-2xl">Get AI Suggestions</Button>
+              <Button variant="outline" onClick={() => setActiveTab('calendar')} className="rounded-2xl">Plan Meals</Button>
             </div>
             <AuthStatus />
           </header>
           <div className="container mx-auto px-4 py-8">
-        {activeTab === "dashboard" && (
-          <div className="space-y-8">
+          <div className="space-y-8 animate-fade-in">
             {/* Header */}
-            <div className="text-center space-y-4">
-              <h1 className="text-5xl font-bold heading-gradient">
-                MealMuse
-              </h1>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                AI-powered family meal planning that brings everyone to the table
-              </p>
+            <div className="backdrop-blur-xl bg-card/40 border border-border/40 rounded-3xl p-8">
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                <div className="space-y-2">
+                  <h1 className="text-4xl md:text-5xl font-bold heading-gradient">Welcome to MealMuse</h1>
+                  <p className="text-lg text-muted-foreground">Your AI-powered meal planning companion</p>
+                </div>
+                <div className="flex gap-3">
+                  <Button variant="secondary" onClick={() => setActiveTab('dashboard')} className="rounded-2xl px-6">
+                    Get AI Suggestions
+                  </Button>
+                  <Button variant="outline" onClick={() => setActiveTab('calendar')} className="rounded-2xl px-6">
+                    Plan Meals
+                  </Button>
+                </div>
+              </div>
             </div>
 
             {/* Quick Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <Card className="bg-card/60 backdrop-blur-md border-border/40 hover:shadow-glow transition-all duration-300">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-2xl font-bold text-primary">2</CardTitle>
-                  <CardDescription>Family Members</CardDescription>
-                </CardHeader>
-              </Card>
-              
-              <Card className="bg-card/60 backdrop-blur-md border-border/40 hover:shadow-glow transition-all duration-300">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-2xl font-bold text-primary">12</CardTitle>
-                  <CardDescription>Favorite Recipes</CardDescription>
-                </CardHeader>
-              </Card>
-              
-              <Card className="bg-card/60 backdrop-blur-md border-border/40 hover:shadow-glow transition-all duration-300">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-2xl font-bold text-primary">5</CardTitle>
-                  <CardDescription>Planned Meals</CardDescription>
-                </CardHeader>
-              </Card>
-              
-              <Card className="bg-card/60 backdrop-blur-md border-border/40 hover:shadow-glow transition-all duration-300">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-2xl font-bold text-primary">3</CardTitle>
-                  <CardDescription>AI Suggestions</CardDescription>
-                </CardHeader>
-              </Card>
-            </div>
+            <QuickStats
+              familyCount={mockFamilyMembers.length}
+              totalMeals={4}
+              favoriteCount={2}
+              weekPlanned={3}
+            />
 
-            {/* AI Generation Section */}
-            <AIGenerationSection />
+            {/* Main Content Grid */}
+            <div className="grid lg:grid-cols-3 gap-8">
+              {/* Left Column - Suggestions and Recent */}
+              <div className="lg:col-span-2 space-y-8">
+                <MealSuggestions />
+                <RecentMeals meals={mockRecentMeals} />
+              </div>
 
-            {/* Family Members & Recipes Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Family Members */}
-              <Card className="bg-card/70 backdrop-blur-md border-border/40 rounded-2xl">
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <CardTitle className="flex items-center gap-2 text-primary">
-                        <User className="h-5 w-5" />
-                        Family Members
-                      </CardTitle>
-                      <CardDescription>Manage preferences and dietary needs</CardDescription>
-                    </div>
-                    <Button size="sm">
-                      <Plus className="h-4 w-4 mr-1" />
-                      Add Member
+              {/* Right Column - Upcoming & Quick Actions */}
+              <div className="space-y-8">
+                <UpcomingMeals items={mockUpcomingMeals} />
+
+                {/* Quick Actions */}
+                <Card className="backdrop-blur-xl bg-card/50 border border-border/40 rounded-3xl overflow-hidden">
+                  <CardHeader className="pb-4">
+                    <CardTitle className="text-foreground text-xl font-bold">Quick Actions</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <Button className="w-full justify-start rounded-2xl" onClick={() => setActiveTab("family")}>
+                      <User className="h-4 w-4 mr-3" />
+                      Manage Family
                     </Button>
-                  </div>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  {mockFamilyMembers.map((member) => (
-                    <FamilyMemberCard key={member.id} member={member} />
-                  ))}
-                </CardContent>
-              </Card>
-
-              {/* Favorite Recipes */}
-              <Card className="bg-card/70 backdrop-blur-md border-border/40 rounded-2xl">
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <CardTitle className="flex items-center gap-2 text-primary">
-                        <List className="h-5 w-5" />
-                        Favorite Recipes
-                      </CardTitle>
-                      <CardDescription>Your family's go-to meals</CardDescription>
-                    </div>
-                    <Button size="sm">
-                      <Plus className="h-4 w-4 mr-1" />
+                    <Button className="w-full justify-start rounded-2xl" onClick={() => setActiveTab("recipes")}>
+                      <List className="h-4 w-4 mr-3" />
                       Add Recipe
                     </Button>
-                  </div>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  {mockFavoriteRecipes.map((recipe) => (
-                    <RecipeCard key={recipe.id} recipe={recipe} />
-                  ))}
-                </CardContent>
-              </Card>
+                    <Button className="w-full justify-start rounded-2xl" onClick={() => setActiveTab("shopping")}>
+                      <Calendar className="h-4 w-4 mr-3" />
+                      Shopping List
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
             </div>
-
-            {/* Quick Actions */}
-            <Card className="bg-card/60 backdrop-blur-md border-border/40 rounded-2xl">
-              <CardHeader>
-                <CardTitle className="text-center text-primary">Quick Actions</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap justify-center gap-4">
-                  <Button onClick={() => setActiveTab("family")}>
-                    <User className="h-4 w-4 mr-2" />
-                    Manage Family
-                  </Button>
-                  <Button onClick={() => setActiveTab("calendar")}>
-                    <Calendar className="h-4 w-4 mr-2" />
-                    Plan Meals
-                  </Button>
-                  <Button onClick={() => setActiveTab("recipes")}>
-                    <Edit className="h-4 w-4 mr-2" />
-                    Add Recipe
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
           </div>
-        )}
 
         {activeTab === "family" && (
           <div className="space-y-6">
