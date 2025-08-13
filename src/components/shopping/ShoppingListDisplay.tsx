@@ -100,4 +100,35 @@ export default function ShoppingListDisplay({
                               : 'text-white'
                           }`}>
                             {item.name}
- 
+                          </div>
+                          <div className={`text-sm transition-all duration-300 print:text-gray-600 ${
+                            isChecked 
+                              ? 'text-white/50 line-through' 
+                              : 'text-white/70'
+                          }`}>
+                            {item.combinedAmount}
+                          </div>
+                          <div className="text-xs text-white/50 mt-1 print:text-gray-500">
+                            For: {item.meals.join(', ')}
+                          </div>
+                        </div>
+                        {isChecked && (
+                          <Check className="w-5 h-5 text-green-300 mt-1" />
+                        )}
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </>
+            ) : (
+              <div className="text-center p-8">
+                <Package className="w-12 h-12 text-white/50 mx-auto mb-3" />
+                <p className="text-white/70">Your shopping list will appear here</p>
+              </div>
+            )}
+          </AnimatePresence>
+        </CardContent>
+      </Card>
+    </motion.div>
+  );
+}

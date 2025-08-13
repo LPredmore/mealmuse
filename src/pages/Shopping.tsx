@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { MealPlan, Meal } from "@/entities/all";
+import { MealPlan, Meal } from "@/lib/entities";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, Printer } from "lucide-react";
 import { format, addDays, startOfDay } from "date-fns";
@@ -206,4 +206,11 @@ export default function Shopping() {
           <ShoppingListDisplay
             shoppingList={shoppingList}
             checkedItems={checkedItems}
- 
+            onItemCheck={handleItemCheck}
+            selectedMeals={selectedMeals}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}

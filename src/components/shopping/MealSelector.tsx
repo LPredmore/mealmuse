@@ -100,4 +100,25 @@ export default function MealSelector({
                       </div>
                     </div>
                     
- 
+                    <div className="flex gap-2 flex-wrap">
+                      {meal.complexity_level && (
+                        <Badge className={`${complexityColors[meal.complexity_level]} border text-xs`}>
+                          {meal.complexity_level}
+                        </Badge>
+                      )}
+                      {meal.prep_time && (
+                        <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/30 border text-xs">
+                          <Clock className="w-3 h-3 mr-1" />
+                          {meal.prep_time}min
+                        </Badge>
+                      )}
+                    </div>
+                  </motion.div>
+                );
+            })}
+          </AnimatePresence>
+        </CardContent>
+      </Card>
+    </motion.div>
+  );
+}

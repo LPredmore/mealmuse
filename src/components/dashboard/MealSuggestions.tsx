@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Clock, ChefHat, Sparkles, Plus, Users } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-import { createPageUrl } from "@/utils";
+import { createPageUrl } from "@/lib/utils";
 
 const complexityColors = {
   easy: "bg-green-500/20 text-green-300 border-green-500/30",

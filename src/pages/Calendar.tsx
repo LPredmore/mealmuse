@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { FamilyMember, Meal, MealPlan, FamilyPreferences } from "@/entities/all";
-import { InvokeLLM } from "@/integrations/Core";
+import { FamilyMember, Meal, MealPlan, FamilyPreferences } from "@/lib/entities";
+import { InvokeLLM } from "@/lib/ai";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Calendar as CalendarIcon, ChefHat, Plus, Star, Sparkles } from "lucide-react";
@@ -206,4 +206,31 @@ export default function Calendar() {
                 />
               );
             })}
- 
+          </AnimatePresence>
+        </div>
+      </DragDropContext>
+
+      {/* Dialogs */}
+      <FavoritesDialog 
+        open={showFavorites}
+        onClose={() => setShowFavorites(false)}
+        onSelectMeal={handleFavoriteSelect}
+        meals={meals.filter(m => m.is_favorite)}
+      />
+
+      <GenerateNewDialog
+        open={showGenerate}
+        onClose={() => setShowGenerate(false)}
+        familyMembers={familyMembers}
+        familyPreferences={familyPreferences}
+        onGenerate={handleGeneratedMeal}
+      />
+
+      <RecipeCard
+        meal={selectedRecipe}
+        open={!!selectedRecipe}
+        onClose={() => setSelectedRecipe(null)}
+      />
+    </div>
+  );
+}

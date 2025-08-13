@@ -100,4 +100,34 @@ export default function RecipeCard({ meal, open, onClose }) {
           {/* Equipment Needed */}
           {meal.equipment_needed && meal.equipment_needed.length > 0 && (
             <div>
- 
+              <h3 className="text-white text-xl font-bold mb-4 print:text-black">Equipment Needed</h3>
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 print:bg-gray-50 print:border-gray-200">
+                <div className="flex flex-wrap gap-2">
+                  {meal.equipment_needed.map((equipment, index) => (
+                    <Badge key={index} className="bg-cyan-500/20 text-cyan-300 border-cyan-500/30 border print:bg-gray-100 print:text-gray-800 print:border-gray-300">
+                      {equipment}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Tags */}
+          {meal.tags && meal.tags.length > 0 && (
+            <div>
+              <h3 className="text-white text-xl font-bold mb-4 print:text-black">Dietary Tags</h3>
+              <div className="flex flex-wrap gap-2">
+                {meal.tags.map((tag, index) => (
+                  <Badge key={index} className="bg-orange-500/20 text-orange-300 border-orange-500/30 border print:bg-gray-100 print:text-gray-800 print:border-gray-300">
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
